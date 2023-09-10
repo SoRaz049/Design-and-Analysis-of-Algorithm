@@ -29,6 +29,7 @@ int main()
 
     cout<<"Enter the number of element: ";
     cin>>num;
+    cout<<endl;
 
     for(i=0;i<num;i++)
     {
@@ -39,6 +40,7 @@ int main()
 
     cout<<"Enter the key to search: ";
     cin>>key;
+    cout<<endl;
 
     check = Binary_Search(A, 0, num-1, key);
 
