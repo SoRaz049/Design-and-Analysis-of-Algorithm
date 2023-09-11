@@ -5,17 +5,15 @@ int counter =0;
 
 void Sorted_array(int A[], int n)
 {
-    int i,seperator;
-    string sep;
-    cout<<"The sorted array is:"<<endl;
-    cout<<"| ";
-    seperator = n;
-    sep = string(seperator,'|');
-    for(i=0; i<n ; i++)
-    {
-        cout<<" "<<sep;
-    }
+    cout << "The sorted array is:" << endl;
+
+    for (int i = 0; i < n; i++)
+        cout << "|"<< A[i];
+
+    cout<<"|";
+    cout << endl;
 }
+
 int Quick_Partition(int A[], int l, int r)
 {
     int pivot = A[r], i = l-1;
