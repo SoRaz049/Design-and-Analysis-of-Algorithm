@@ -1,9 +1,12 @@
 #include <iostream>
 using namespace std;
 
-void Sorted_array(int A[], int n)
+int counter=0;
+
+void QuickSortedArray(int A[], int n)
 {
-    cout << "The sorted array is:" << endl;
+    cout << "The sorted array for 'Quick Sort' is:\n" << endl;
+    cout<<"-->";
 
     for (int i = 0; i < n; i++)
         cout << "|" << A[i];
@@ -11,7 +14,7 @@ void Sorted_array(int A[], int n)
     cout << "|" << endl;
 }
 
-int Quick_Partition(int A[], int l, int r)
+int QuickPartition(int A[], int l, int r)
 {
     int pivot = A[r];
     int i = l - 1;
@@ -29,37 +32,113 @@ int Quick_Partition(int A[], int l, int r)
     return i + 1;
 }
 
-void Quick_Sort(int A[], int l, int r)
+int QuickSort(int A[], int l, int r)
 {
     if (l < r)
     {
-        int p = Quick_Partition(A, l, r);
-        Quick_Sort(A, l, p - 1);
-        Quick_Sort(A, p + 1, r);
+        counter++;
+        int p = QuickPartition(A, l, r);
+        QuickSort(A, l, p - 1);
+        QuickSort(A, p + 1, r);
     }
+
+    return counter;
+}
+
+void MergeSortedArray(int A[], int n)
+{
+    cout << "The sorted array for 'Merge Sort' is:\n" << endl;
+    cout<<"-->";
+
+    for (int i = 0; i < n; i++)
+        cout << "|" << A[i];
+
+    cout << "|" << endl;
+}
+
+int Merge(int A[],int m, int l, int r)
+{
+    int B[20],x,y,k,i;
+
+    x = l;
+    y = m + 1;
+    k = l;
+
+    while(x <= m && y <= r)
+    {
+        if(A[x] < A[y])
+        {
+            B[k] = A[x];
+            x++;
+            k++;
+        }
+        else
+        {
+            B[k] = A[y];
+            y++;
+            k++;
+        }
+    }
+
+    while(x <= m)
+    {
+        B[k] = A[x];
+        x++;
+        k++;
+    }
+    while(y <= r)
+    {
+        B[k] = A[y];
+        y++;
+        k++;
+    }
+
+    for(i =0; i <= r; i++)
+        A[i]=B[i];
+
+}
+
+int MergeSort(int A[], int l, int r)
+{
+    if (l < r)
+    {
+        int m;
+        counter++;
+        m = (l + r) / 2;
+        MergeSort(A,l,m);
+        MergeSort(A,m + 1,r);
+        Merge(A, m, l, r);
+    }
+
+    return counter;
 }
 
 int main()
 {
-    int A[20], num;
+    int A1[20],A2[20], num,quick_time,i, merge_time;
     cout << "Enter the number of elements: ";
     cin >> num;
+    cout<<endl;
 
-    if (num <= 0 || num > 20)
+    for (i = 0; i < num; i++)
     {
-        cout << "Invalid input. Please enter a valid number of elements (1-20)." << endl;
-        return 1;
+        cout << "Enter "<<i + 1 <<" element: ";
+        cin >> A1[i];
     }
 
-    for (int i = 0; i < num; i++)
+    for (i = 0; i < num; i++)
     {
-        cout << "Enter element " << i + 1 << ": ";
-        cin >> A[i];
+        A2[i] = A1[i];
     }
     cout << endl;
 
-    Quick_Sort(A, 0, num - 1);
-    Sorted_array(A, num);
+    quick_time = QuickSort(A1, 0, num - 1);
+    QuickSortedArray(A1, num);
+    cout<<"\nThe time complexity is: "<<quick_time<<endl<<endl;
+
+    merge_time = MergeSort(A2, 0, num - 1);
+    MergeSortedArray(A2, num);
+    cout<<"\nThe time complexity is: "<<merge_time<<endl;
 
     return 0;
 }
