@@ -1,59 +1,65 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-
-int counter =0;
 
 void Sorted_array(int A[], int n)
 {
     cout << "The sorted array is:" << endl;
 
     for (int i = 0; i < n; i++)
-        cout << "|"<< A[i];
+        cout << "|" << A[i];
 
-    cout<<"|";
-    cout << endl;
+    cout << "|" << endl;
 }
 
 int Quick_Partition(int A[], int l, int r)
 {
-    int pivot = A[r], i = l-1;
-    int j;
+    int pivot = A[r];
+    int i = l - 1;
 
-    for(j=l; j<r; j++)
+    for (int j = l; j < r; j++)
     {
-        if(A[j]<pivot)
+        if (A[j] < pivot)
         {
             i++;
-            swap(A[i],A[j]);
+            swap(A[i], A[j]);
         }
-
     }
 
-    swap(A[i+1],r);
-    return i+1;
+    swap(A[i + 1], A[r]);
+    return i + 1;
 }
 
-int Quick_Sort(int A[], int l, int r)
+void Quick_Sort(int A[], int l, int r)
 {
-    int p;
-    if(l <= r)
+    if (l < r)
     {
-        counter++;
-        p = Quick_Partition(A,l,r);
-        Quick_Sort(A, l, p-1);
-        Quick_Sort(A, p+1, r);
+        int p = Quick_Partition(A, l, r);
+        Quick_Sort(A, l, p - 1);
+        Quick_Sort(A, p + 1, r);
     }
-    return counter;
 }
-
-
 
 int main()
 {
-    int A[]={4,5,6,8,3,1};
-    int n = 6;
-    int c;
-    c = Quick_Sort(A,0 , n-1);
-    Sorted_array(A,n);
-    cout<<c;
+    int A[20], num;
+    cout << "Enter the number of elements: ";
+    cin >> num;
+
+    if (num <= 0 || num > 20)
+    {
+        cout << "Invalid input. Please enter a valid number of elements (1-20)." << endl;
+        return 1;
+    }
+
+    for (int i = 0; i < num; i++)
+    {
+        cout << "Enter element " << i + 1 << ": ";
+        cin >> A[i];
+    }
+    cout << endl;
+
+    Quick_Sort(A, 0, num - 1);
+    Sorted_array(A, num);
+
+    return 0;
 }
