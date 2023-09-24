@@ -1,11 +1,11 @@
 #include <iostream>
 using namespace std;
 
-int counter=0;
+int quick_counter=0, merge_counter=0;
 
-void QuickSortedArray(int A[], int n)
+void PrintArray(int A[], int n)
 {
-    cout << "The sorted array for 'Quick Sort' is:\n" << endl;
+    cout << "The sorted array is:\n" << endl;
     cout<<"-->";
 
     for (int i = 0; i < n; i++)
@@ -36,25 +36,15 @@ int QuickSort(int A[], int l, int r)
 {
     if (l < r)
     {
-        counter++;
+        quick_counter++;
         int p = QuickPartition(A, l, r);
         QuickSort(A, l, p - 1);
         QuickSort(A, p + 1, r);
     }
 
-    return counter;
+    return quick_counter;
 }
 
-void MergeSortedArray(int A[], int n)
-{
-    cout << "The sorted array for 'Merge Sort' is:\n" << endl;
-    cout<<"-->";
-
-    for (int i = 0; i < n; i++)
-        cout << "|" << A[i];
-
-    cout << "|" << endl;
-}
 
 int Merge(int A[],int m, int l, int r)
 {
@@ -66,7 +56,7 @@ int Merge(int A[],int m, int l, int r)
 
     while(x <= m && y <= r)
     {
-        if(A[x] < A[y])
+        if(A[x] <= A[y])
         {
             B[k] = A[x];
             x++;
@@ -93,9 +83,8 @@ int Merge(int A[],int m, int l, int r)
         k++;
     }
 
-    for(i =0; i <= r; i++)
+    for(i =l; i <= r; i++)
         A[i]=B[i];
-
 }
 
 int MergeSort(int A[], int l, int r)
@@ -103,14 +92,14 @@ int MergeSort(int A[], int l, int r)
     if (l < r)
     {
         int m;
-        counter++;
+        merge_counter++;
         m = (l + r) / 2;
         MergeSort(A,l,m);
         MergeSort(A,m + 1,r);
         Merge(A, m, l, r);
     }
 
-    return counter;
+    return merge_counter;
 }
 
 int main()
@@ -133,11 +122,15 @@ int main()
     cout << endl;
 
     quick_time = QuickSort(A1, 0, num - 1);
-    QuickSortedArray(A1, num);
+
+    cout<<"For Quick Sort: "<<endl;
+    PrintArray(A1, num);
     cout<<"\nThe time complexity is: "<<quick_time<<endl<<endl;
 
     merge_time = MergeSort(A2, 0, num - 1);
-    MergeSortedArray(A2, num);
+
+    cout<<"For Merge Sort: "<<endl;
+    PrintArray(A2, num);
     cout<<"\nThe time complexity is: "<<merge_time<<endl;
 
     return 0;
